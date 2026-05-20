@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026/5/20❤️</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            width: 100vw; height: 100vh;
+            background: #ffeff5;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+        }
+        .tip {
+            font-size: 18px; color: #ff5a8c; margin-bottom: 15px;
+            animation: tipAni 1.2s infinite alternate;
+        }
+        @keyframes tipAni {
+            from { opacity: 0.7; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.08); }
+        }
+        #loveBtn {
+            padding: 14px 35px; font-size: 20px;
+            background: #ff477e; color: white; border: none; border-radius: 50px;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(255,71,126,0.3);
+        }
+        #loveBtn:hover { transform: scale(1.1); }
+        .text {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+            font-size: 60px; font-weight: bold; color: #ffffff;
+            text-shadow: 0 0 20px rgba(255,46,99,0.5);
+            display: none; z-index: 99;
+        }
+        #flowers {
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            pointer-events: none; z-index:10;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 本地音乐：你把歌曲命名为 love.mp3 放在同一个文件夹即可 -->
+<audio id="bgm" loop></audio>
+
+<div class="tip">点击这里哦(づ￣3￣)づ╭❤～ ❤️</div>
+<button id="loveBtn">点开查看</button>
+<div class="text" id="loveText">520快乐，老公~ ❤️</div>
+<div id="flowers"></div>
+
+<script>
+const btn = document.getElementById('loveBtn');
+const text = document.getElementById('loveText');
+const flowers = document.getElementById('flowers');
+const tip = document.querySelector('.tip');
+const bgm = document.getElementById('bgm');
+
+btn.addEventListener('click', async () => {
+    // 播放本地音乐（核心）
+    bgm.src = "love.mp3";
+    try {
+        await bgm.play();
+    } catch (e) {}
+
+    btn.style.display = 'none';
+    tip.style.display = 'none';
+    text.style.display = 'block';
+    startFlowers();
+});
+
+function startFlowers() {
+    const list = ['🌹','🌸','🌷','💐','🌺','💖'];
+    setInterval(() => {
+        let f = document.createElement('div');
+        f.innerText = list[Math.floor(Math.random()*list.length)];
+        f.style.cssText = `
+            position: absolute;
+            left: ${Math.random()*100}%;
+            top: -50px;
+            font-size: ${Math.random()*25+15}px;
+            opacity: ${Math.random()*0.8+0.2};
+            animation: fall ${Math.random()*3+3}s linear forwards;
+        `;
+        flowers.appendChild(f);
+        setTimeout(()=>f.remove(), 6000);
+    }, 150);
+}
+
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes fall {
+    to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>
